@@ -23,20 +23,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //Map for the questions / answers
     var questions = [
       {
         'questionText': 'What\'s your favorite color?',
         'answers': ['Black', 'Red', 'Green', 'White'],
       },
       {
-        'questionText':'What\'s your favorite animal?',
+        'questionText': 'What\'s your favorite animal?',
         'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
       },
       {
-        'questionText':'Who\'s your favorite instructor?',
+        'questionText': 'Who\'s your favorite instructor?',
         'answers': ['Max', 'Max', 'Max', 'Max'],
       },
-
     ];
     return MaterialApp(
       home: Scaffold(
@@ -45,10 +45,12 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            Question(
+                questions[_questionIndex]['questionText'].toString(),//cause Dart interprets the Map as <String: Object>
+            ),
+            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),
